@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disciplina HTML/CSS | Prof. Marcelo Padilha</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--light);
+            color: var(--primary);
+        }
+
+        /* AJUSTE PARA ALINHAMENTO LADO A LADO */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 5px solid var(--secondary);
+            
+            display: flex;         /* Ativa o modo flexível */
+            align-items: center;   /* Alinha verticalmente no centro */
+            justify-content: center; /* Centraliza o conjunto no meio da tela */
+            gap: 20px;            /* Espaço entre o brasão e o texto */
+        }
+
+        .brasao {
+            max-width: 80px;      /* Reduzi um pouco para ficar proporcional ao texto */
+            height: auto;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        /* ... Restante do CSS (Container, Cards, etc) permanece igual ao anterior ... */
+        .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+        .prof-info { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 2rem; text-align: center; }
+        .turmas-grid { 
+            display: grid; 
+            /* Força 4 colunas iguais em uma única linha */
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 1.5rem; 
+        }
+
+        /* Ajuste para que em celulares (telas pequenas) elas voltem a empilhar 
+           e não fiquem espremidas demais */
+        @media (max-width: 900px) {
+            .turmas-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 por linha em tablets */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .turmas-grid {
+                grid-template-columns: 1fr; /* 1 por linha em celulares */
+            }
+        }
+        .turma-card { background: white; padding: 1.5rem; border-radius: 8px; border-left: 5px solid var(--secondary); transition: transform 0.2s; }
+        .turma-card:hover { transform: translateY(-5px); }
+        .turma-card h2 { margin-top: 0; color: var(--secondary); }
+        .lista-grupos { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        .lista-grupos a { text-decoration: none; color: #555; font-size: 0.9rem; display: block; padding: 3px; border-radius: 3px; }
+        .lista-grupos a:hover { background: #f0f0f0; color: var(--accent); }
+        footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Substitua o src pelo link real do brasão -->
+        <img src="brasao_nyrce.png" alt="Brasão da Escola" class="brasao">
+        <h1>Portal da Disciplina: HTML & CSS</h1>
+    </header>
+
+    <div class="container">
+        <div class="prof-info">
+            <h2>Professor: Marcelo Padilha</h2>
+            <p>Selecione sua turma e o respectivo grupo para visualizar os projetos desenvolvidos.</p>
+        </div>
+
+        <div class="turmas-grid">
+            <!-- Bloco de Turma (Repetido para as 5 turmas) -->
+            <script>
+                const turmas = ['201', '202', '203', '204'];
+                const turmasGrid = document.querySelector('.turmas-grid');
+
+                turmas.forEach(num => {
+                    let gruposLinks = '';
+                    for(let i=1; i<=10; i++) {
+                        gruposLinks += `<li><a href="turma-${num}/grupo-${i}/index.html">Grupo ${i}</a></li>`;
+                    }
+
+                    turmasGrid.innerHTML += `
+                        <div class="turma-card">
+                            <h2>Turma ${num}</h2>
+                            <ul class="lista-grupos">
+                                ${gruposLinks}
+                            </ul>
+                        </div>
+                    `;
+                });
+            </script>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 - Professor Marcelo Padilha - Projetos de Alunos
+    </footer>
+
+</body>
+</html>
